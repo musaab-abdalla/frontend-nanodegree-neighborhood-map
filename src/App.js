@@ -15,7 +15,7 @@ class App extends Component {
   componentDidMount = () => {
     this.getLocations();
   };
-  // export default SeatGeekAPI;
+  // fetch to retrieve data from SeatGeekAPI;
   // https://api.seatgeek.com/2/venues?client_id=MTQ3MjUzMTB8MTU0NjU3MTc4MC40Nw&client_secret=e46d8581d98202b201fa3e83c35d2ea4fc661d1a48f78daf322dff0dbded6d54&geoip=true&range=20mi&state=NC&per_page=20
   getLocations = () => {
     const endPoint = 'https://api.seatgeek.com/2/venues?';
@@ -23,7 +23,6 @@ class App extends Component {
       client_id: SG_CLIENT_ID,
       client_secret: SG_CLIENT_SECRET,
       state: 'NC',
-      // City: 'Cary',
       geoip: true,
       range: '20mi',
       per_page: 20
