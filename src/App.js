@@ -9,7 +9,7 @@ class App extends Component {
     lat: 35.7915,
     lon: -78.7811,
     zoom: 11,
-    all: []
+    venues: []
   };
 
   componentDidMount = () => {
@@ -29,7 +29,7 @@ class App extends Component {
     };
     fetch(endPoint + new URLSearchParams(parameters))
       .then(res => res.json())
-      .then(data => this.setState({ all: data.venues }))
+      .then(data => this.setState({ venues: data.venues }))
       .catch(error => {
         alert('SeatGeek data could not be retrieved ' + error);
       });
@@ -48,7 +48,7 @@ class App extends Component {
           lon={this.state.lon}
           google={this.props.google}
           zoom={this.state.zoom}
-          locations={this.state.all}
+          locations={this.state.venues}
         />
       </div>
     );
