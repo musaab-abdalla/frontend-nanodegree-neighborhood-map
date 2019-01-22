@@ -31,7 +31,7 @@ class App extends Component {
       .then(res => res.json())
       .then(data => this.setState({ all: data.venues }))
       .catch(error => {
-        console.log('ERROR !!', error);
+        alert('SeatGeek data could not be retrieved ' + error);
       });
   };
 
