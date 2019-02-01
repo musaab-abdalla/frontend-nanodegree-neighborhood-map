@@ -46,7 +46,7 @@ class App extends Component {
 
   render() {
     // Show the error message when response doesn’t match expected data
-    const { error } = this.state;
+    const { lat, lon, venues, zoom, styles, error } = this.state;
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -59,12 +59,12 @@ class App extends Component {
         </header>
         <main className="App-main">
           <MapContainer
-            lat={this.state.lat}
-            lon={this.state.lon}
+            lat={lat}
+            lon={lon}
             google={this.props.google}
-            zoom={this.state.zoom}
-            locations={this.state.venues}
-            styles={this.state.styles}
+            zoom={zoom}
+            locations={venues}
+            styles={styles}
           />
         </main>
       </div>
