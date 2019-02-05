@@ -61,7 +61,6 @@ class App extends Component {
           <MapContainer
             lat={lat}
             lon={lon}
-            google={this.props.google}
             zoom={zoom}
             locations={venues}
             styles={styles}
