@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo';
 class MapContainer extends Component {
@@ -33,24 +33,8 @@ class MapContainer extends Component {
         zoom={this.props.zoom}
         style={mapStyles}
         initialCenter={center}
-      >
-        {this.props.locations &&
-          this.props.locations.map((loc, index) => {
-            return (
-              <Marker
-                id={loc.id}
-                key={loc.id}
-                index={index}
-                title={loc.name}
-                name={loc.name}
-                address={loc.address}
-                extendedAddress={loc.extended_address}
-                position={{ lat: loc.location.lat, lng: loc.location.lon }}
-                animation={this.props.google.maps.Animation.DROP}
-              />
-            );
-          })}
-      </Map>
+        styles={this.props.styles}
+      />
     );
   }
 }

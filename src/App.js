@@ -58,13 +58,9 @@ class App extends Component {
           </div>
         </header>
         <main className="App-main">
-          <MapContainer
-            lat={lat}
-            lon={lon}
-            zoom={zoom}
-            locations={venues}
-            styles={styles}
-          />
+          <section className="map-container">
+            <MapContainer lat={lat} lon={lon} zoom={zoom} locations={venues} styles={styles} />
+          </section>
         </main>
       </div>
     );
