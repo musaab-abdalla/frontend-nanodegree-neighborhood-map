@@ -56,6 +56,7 @@ class MapContainer extends Component {
         zoom={this.props.zoom}
         style={mapStyles}
         initialCenter={center}
+        center={this.state.selectedPlace.position}
         styles={this.props.styles}>
         {/* Iterate through the this.props.locations array and instantiate a new <Marker /> instance for each. */}
         {this.props.locations.map((loc, index) => {
