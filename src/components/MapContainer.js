@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react';
+import React, { Component } from 'react'
+import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react'
 
-const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo';
+const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo'
 class MapContainer extends Component {
   state = {
     map: null,
-    markers: this.marker,
     activeMarker: {},
     selectedPlace: {},
     showingInfoWindow: false
-  };
+  }
 
   mapReady = (props, map) => {
     // Save the map reference in state and prepare the location markers
-    this.setState({ map });
-  };
+    this.setState({ map })
+  }
 
   /*
   The onMarkerClick() is used to show the InfoWindow which is a component in the google-maps-react library which gives us the ability for a pop-up window showing details of the clicked place/marker.
@@ -24,8 +23,8 @@ class MapContainer extends Component {
       activeMarker: marker,
       selectedPlace: props,
       showingInfoWindow: true
-    });
-  };
+    })
+  }
 
   // The closeInfoWindow() is for closing the InfoWindow once a user clicks on the close button on the infoWindow.
   closeInfoWindow = props => {
@@ -33,20 +32,20 @@ class MapContainer extends Component {
       this.setState({
         showingInfoWindow: false,
         activeMarker: null
-      });
+      })
     }
-  };
+  }
 
   render() {
     const mapStyles = {
       width: '100%',
       height: '100%'
-    };
+    }
     // Cary - NC, by default
     const center = {
       lat: this.props.lat,
       lng: this.props.lon
-    };
+    }
     return (
       <Map
         role="application"
@@ -76,7 +75,7 @@ class MapContainer extends Component {
                 lng: loc.location.lon
               }}
             />
-          );
+          )
         })}
         {/* <InfoWindow /> component can now handle callback actions when it's open or closed. */}
         <InfoWindow
@@ -106,10 +105,10 @@ class MapContainer extends Component {
           </div>
         </InfoWindow>
       </Map>
-    );
+    )
   }
 }
 
 export default GoogleApiWrapper({
   apiKey: MAP_KEY
-})(MapContainer);
+})(MapContainer)
