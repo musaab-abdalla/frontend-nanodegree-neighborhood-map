@@ -5,6 +5,7 @@ const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo'
 class MapContainer extends Component {
   state = {
     map: null,
+    mapDropped: false,
     activeMarker: {},
     selectedPlace: {},
     showingInfoWindow: false
@@ -22,7 +23,8 @@ class MapContainer extends Component {
     this.setState({
       activeMarker: marker,
       selectedPlace: props,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      mapDropped: true
     })
   }
 
@@ -31,7 +33,8 @@ class MapContainer extends Component {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: null
+        activeMarker: null,
+        mapDropped: true
       })
     }
   }
@@ -74,6 +77,7 @@ class MapContainer extends Component {
                 lat: loc.location.lat,
                 lng: loc.location.lon
               }}
+              animation={!this.state.mapDropped ? this.props.google.maps.Animation.DROP : null}
             />
           )
         })}
