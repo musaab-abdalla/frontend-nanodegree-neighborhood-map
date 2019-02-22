@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react'
+import locationMarker from '../img/location.png'
+import locationSelected from '../img/location_selected.png'
 
 const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo'
 class MapContainer extends Component {
@@ -79,6 +81,7 @@ class MapContainer extends Component {
                 lng: loc.location.lon
               }}
               animation={!this.state.mapDropped ? this.props.google.maps.Animation.DROP : null}
+              icon={this.state.selectedPlace.name === loc.name ? locationMarker : locationSelected}
             />
           )
         })}
