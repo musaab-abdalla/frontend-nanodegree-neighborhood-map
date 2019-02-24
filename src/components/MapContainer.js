@@ -6,11 +6,7 @@ import locationSelected from '../img/location_selected.png'
 const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo'
 class MapContainer extends Component {
   state = {
-    map: null,
-    mapDropped: false,
-    activeMarker: {},
-    selectedPlace: {},
-    showingInfoWindow: false
+    map: null
   }
 
   mapReady = (props, map) => {
@@ -18,38 +14,10 @@ class MapContainer extends Component {
     this.setState({ map })
   }
 
-  /*
-  The onMarkerClick() is used to show the InfoWindow which is a component in the google-maps-react library which gives us the ability for a pop-up window showing details of the clicked place/marker.
-  */
-  onMarkerClick = (props, marker, e) => {
-    this.setState({
-      activeMarker: marker,
-      selectedPlace: props,
-      showingInfoWindow: true,
-      mapDropped: true
-    })
-  }
-
-  // The closeInfoWindow() is for closing the InfoWindow once a user clicks on the close button on the infoWindow.
-  closeInfoWindow = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null,
-        mapDropped: true
-      })
-    }
-  }
-
   render() {
     const mapStyles = {
       width: '100%',
       height: '100%'
-    }
-    // Cary - NC, by default
-    const center = {
-      lat: this.props.lat,
-      lng: this.props.lon
     }
     return (
       <Map
@@ -57,12 +25,15 @@ class MapContainer extends Component {
         aria-label="map"
         onReady={this.mapReady}
         google={this.props.google}
-        zoom={this.props.zoom}
+        zoom={11}
         style={mapStyles}
-        initialCenter={center}
-        center={this.state.selectedPlace.position}
+        initialCenter={{
+          lat: 35.7915,
+          lng: -78.7811
+        }}
+        center={this.props.selectedPlace.position}
         styles={this.props.styles}
-        onClick={this.closeInfoWindow}>
+        onClick={this.props.onInfoWindowClose}>
         {/* Iterate through the this.props.locations array and instantiate a new <Marker /> instance for each. */}
         {this.props.locations.map((loc, index) => {
           return (
@@ -75,36 +46,36 @@ class MapContainer extends Component {
               address={loc.address}
               extendedAddress={loc.extended_address}
               url={loc.url}
-              onClick={this.onMarkerClick}
+              onClick={this.props.onMarkerClick}
               position={{
                 lat: loc.location.lat,
                 lng: loc.location.lon
               }}
-              animation={!this.state.mapDropped ? this.props.google.maps.Animation.DROP : null}
-              icon={this.state.selectedPlace.name === loc.name ? locationMarker : locationSelected}
+              animation={!this.props.mapDropped ? this.props.google.maps.Animation.DROP : null}
+              icon={this.props.selectedPlace.name === loc.name ? locationMarker : locationSelected}
             />
           )
         })}
         {/* <InfoWindow /> component can now handle callback actions when it's open or closed. */}
         <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.closeInfoWindow}>
+          marker={this.props.activeMarker}
+          visible={this.props.showingInfoWindow}
+          onClose={this.props.onInfoWindowClose}>
           <div>
-            <h1>{this.state.activeMarker && this.state.activeMarker.name}</h1>
+            <h1>{this.props.activeMarker && this.props.activeMarker.name}</h1>
             <div>
               Capacity:{' '}
-              {this.state.activeMarker && this.state.activeMarker.capacity > 0
-                ? this.state.activeMarker.capacity
+              {this.props.activeMarker && this.props.activeMarker.capacity > 0
+                ? this.props.activeMarker.capacity
                 : 'Not available'}
             </div>
             <address>
-              {this.state.activeMarker && this.state.activeMarker.address}
+              {this.props.activeMarker && this.props.activeMarker.address}
               <br />
-              {this.state.activeMarker && this.state.activeMarker.extendedAddress}
+              {this.props.activeMarker && this.props.activeMarker.extendedAddress}
               <br />
               <a
-                href={this.state.activeMarker && this.state.activeMarker.url}
+                href={this.props.activeMarker && this.props.activeMarker.url}
                 target="_blank"
                 rel="noopener noreferrer">
                 SeatGeek.com Web page
