@@ -41,6 +41,7 @@ class MapContainer extends Component {
               id={loc.id}
               key={loc.id}
               index={index}
+              title={loc.name}
               name={loc.name}
               capacity={loc.capacity}
               address={loc.address}
