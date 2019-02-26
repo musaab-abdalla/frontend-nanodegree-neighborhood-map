@@ -14,6 +14,21 @@ class MapContainer extends Component {
     this.setState({ map })
   }
 
+  componentDidUpdate = () => {
+    /*
+    Call fitBounds() or center the map such that it shows all markers and auto zoom
+    I used this comment from a different package, and it appears to work fine
+    https://github.com/tomchentw/react-google-maps/issues/305#issuecomment-352290795
+    */
+    const bounds = new this.props.google.maps.LatLngBounds()
+    this.props.locations.map(location => {
+      return bounds.extend(
+        new this.props.google.maps.LatLng(location.location.lat, location.location.lon)
+      )
+    })
+
+    this.refs.resultMap.map.fitBounds(bounds)
+  }
   render() {
     const mapStyles = {
       width: '100%',
@@ -23,6 +38,7 @@ class MapContainer extends Component {
       <Map
         role="application"
         aria-label="map"
+        ref="resultMap"
         onReady={this.mapReady}
         google={this.props.google}
         zoom={11}
@@ -31,7 +47,7 @@ class MapContainer extends Component {
           lat: 35.7915,
           lng: -78.7811
         }}
-        center={this.props.selectedPlace.position}
+        center={this.props.selectedPlace.position /* Center marker on the map onClock */}
         styles={this.props.styles}
         onClick={this.props.onInfoWindowClose}>
         {/* Iterate through the this.props.locations array and instantiate a new <Marker /> instance for each. */}

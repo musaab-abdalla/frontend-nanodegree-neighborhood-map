@@ -65,12 +65,15 @@ class App extends Component {
       activeMarker: marker,
       selectedPlace: props,
       showingInfoWindow: true,
+      // Prevent markers from dropped again into a map
       mapDropped: true
     })
   }
 
-  // The closeInfoWindow() is for closing the InfoWindow once a user clicks on
-  // the close button on the infoWindow.
+  /*
+  The closeInfoWindow() is for closing the InfoWindow once a user clicks on
+  the close button on the infoWindow.
+  */
   onInfoWindowClose = props => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -82,7 +85,11 @@ class App extends Component {
   }
 
   handleDrawerToggle = () => {
-    this.setState(state => ({ open: !state.open }))
+    this.setState(state => ({
+      open: !state.open,
+      // Prevent markers from dropped again into a map when click drawer toggle.
+      mapDropped: true
+    }))
   }
 
   render() {
