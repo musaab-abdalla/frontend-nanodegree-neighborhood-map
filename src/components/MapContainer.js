@@ -69,7 +69,7 @@ class MapContainer extends Component {
                 lng: loc.location.lon
               }}
               animation={!this.props.mapDropped ? this.props.google.maps.Animation.DROP : null}
-              icon={this.props.selectedPlace.name === loc.name ? locationMarker : locationSelected}
+              icon={this.props.selectedPlace.name === loc.name ? locationSelected : locationMarker}
             />
           )
         })}
