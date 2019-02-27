@@ -31,8 +31,9 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    // Check if the component is still mounted
     this._isMounted = true
-    // fetch to retrieve data from SeatGeek;
+    // Fetch to retrieve data from SeatGeek;
     fetch(endPoint + new URLSearchParams(parameters))
       .then(response => {
         if (response.ok) {
@@ -52,6 +53,7 @@ class App extends Component {
   }
 
   componentWillUnmount() {
+    // Avoid an unnecessary state update
     this._isMounted = false
   }
 
