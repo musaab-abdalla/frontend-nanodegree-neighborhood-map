@@ -81,14 +81,12 @@ class App extends Component {
   The closeInfoWindow() is for closing the InfoWindow once a user clicks on
   the close button on the infoWindow.
   */
-  onInfoWindowClose = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null,
-        mapDropped: true
-      })
-    }
+  onInfoWindowClose = () => {
+    this.setState({
+      showingInfoWindow: false,
+      activeMarker: null,
+      mapDropped: true
+    })
   }
 
   handleDrawerToggle = () => {

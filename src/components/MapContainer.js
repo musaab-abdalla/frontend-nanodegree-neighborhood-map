@@ -5,6 +5,13 @@ import locationSelected from '../img/location_selected.png'
 
 const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo'
 class MapContainer extends Component {
+  state = {
+    map: null
+  }
+
+  mapReady = (props, map) => {
+    this.setState({ map })
+  }
   componentDidUpdate = () => {
     /*
     Call fitBounds() or center the map such that it shows all markers and auto zoom
@@ -30,6 +37,7 @@ class MapContainer extends Component {
         role="application"
         aria-label="map"
         ref="resultMap"
+        onReady={this.mapReady}
         google={this.props.google}
         zoom={11}
         style={mapStyles}
