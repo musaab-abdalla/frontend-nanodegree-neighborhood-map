@@ -20,6 +20,7 @@ class App extends Component {
   _isMounted = false
   state = {
     venues: [],
+    filtered: null,
     isLoading: false,
     error: null,
     mapDropped: false,
@@ -45,7 +46,11 @@ class App extends Component {
       })
       .then(data => {
         if (this._isMounted) {
-          this.setState({ venues: data.venues, isLoading: false })
+          this.setState({
+            venues: data.venues,
+            isLoading: false,
+            filtered: this.filterLocations(data.venues, '')
+          })
         }
       })
       // Handle errors
@@ -94,6 +99,21 @@ class App extends Component {
     }))
   }
 
+  updateQuery = query => {
+    this.setState({
+      ...this.state,
+      filtered: this.filterLocations(this.state.venues, query)
+    })
+  }
+
+  filterLocations = (locations, query) => {
+    return locations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()))
+  }
+
+  onButtonClick = venueName => {
+    document.querySelector(`[title="${venueName}"]`).click()
+  }
+
   render() {
     // Show the error message when response doesn’t match expected data
     const { isLoading, error } = this.state
@@ -117,12 +137,14 @@ class App extends Component {
         <ListLocations
           open={this.state.open}
           toggleDrawer={this.handleDrawerToggle}
-          locations={this.state.venues}
+          locations={this.state.filtered}
+          filterLocations={this.updateQuery}
+          onButtonClick={this.onButtonClick}
         />
         <main className="App-main">
           <section className="map-container">
             <MapContainer
-              locations={this.state.venues}
+              locations={this.state.filtered}
               activeMarker={this.state.activeMarker}
               selectedPlace={this.state.selectedPlace}
               showingInfoWindow={this.state.showingInfoWindow}
