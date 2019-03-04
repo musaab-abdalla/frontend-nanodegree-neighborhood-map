@@ -1,68 +1,82 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Neighborhood Map (City Events)
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+Develop a single page application featuring a map of neighborhood events in react js library, then added functionality to this map including highlighted locations, third-party data about those locations and various ways to browse the content.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Requirements
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+This project will be evaluated by a Udacity code reviewer according to the Neighborhood Map (React) [project rubric](https://review.udacity.com/#!/rubrics/1351/view).
 
-### `npm test`
+- Interface Design.
+- Application Functionality.
+- Asynchronous Data Usage.
+- Documentation.
+- Location Details Functionality.
+- Accessibility.
+- Offline Use.
+- Application Architecture.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Screenshot
 
-### `npm run build`
+![desktop](https://raw.githubusercontent.com/musaab-abdalla/musaab-abdalla.github.io/master/frontend-nanodegree-neighborhood-map/screenshot/desktop.png 'Desktop')![tablet](https://raw.githubusercontent.com/musaab-abdalla/musaab-abdalla.github.io/master/frontend-nanodegree-neighborhood-map/screenshot/tablet.png 'Tablet')![mobile](https://raw.githubusercontent.com/musaab-abdalla/musaab-abdalla.github.io/master/frontend-nanodegree-neighborhood-map/screenshot/mobile.png 'Mobile')
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Instructions
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### How to setup the app locally'?'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Locally
 
-### `npm run eject`
+**1.** Clone this repo:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```git
+git clone https://github.com/musaab-abdalla/frontend-nanodegree-neighborhood-map.git
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**2.** Get a Google maps API key
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+You can use the [Google Cloud Platform Console](https://console.cloud.google.com/google/maps-apis) to manage projects, get API keys, and add API key restrictions.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**3.** After cloning this repository, go inside the directory `reactnd-project-myreads-starter`
 
-## Learn More
+**4.** Once inside the main directory install all the dependencies with
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```npm
+npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**5.** After you have installed all the dependencies you just need to start the app
 
-### Code Splitting
+```npm
+npm start
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Your App should be running in
 
-### Analyzing the Bundle Size
+```localhost
+http://localhost:3000
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Dependencies and Attributions
 
-### Making a Progressive Web App
+- React js
+- Google Maps API
+- google-maps-react
+- SeatGeek API [SeatGeek](https://seatgeek.com)
+- Map styling: [Snazzy Maps](https://snazzymaps.com/style/30/cobalt)
+- Service Workers register
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### Create react app
 
-### Advanced Configuration
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Style Guides
 
-### Deployment
+Make sure your code adheres to our HTML, CSS, JavaScript, and Git style guidelines
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- HTML Style Guide
+- CSS Style Guide
+- JavaScript Style Guide
+- Git Style Guide
