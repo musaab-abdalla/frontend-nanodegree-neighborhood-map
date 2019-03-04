@@ -5,80 +5,82 @@ import locationSelected from '../img/location_selected.png'
 
 const MAP_KEY = 'AIzaSyAf2w35NrC6a_XrDuvADvfWC7rs46t3Vuo'
 class MapContainer extends Component {
-  state = {
-    map: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      map: null
+    }
+    this.mapReady = this.mapReady.bind(this)
   }
+
+  componentDidUpdate = () => {}
 
   mapReady = (props, map) => {
-    this.setState({ map })
+    this.setState({ map: map })
   }
-  componentDidUpdate = () => {
-    /*
-    Call fitBounds() or center the map such that it shows all markers and auto zoom
-    I used this comment from a different package, and it appears to work fine
-    https://github.com/tomchentw/react-google-maps/issues/305#issuecomment-352290795
-    */
-    const bounds = new this.props.google.maps.LatLngBounds()
-    this.props.locations.map(location => {
-      return bounds.extend(
-        new this.props.google.maps.LatLng(location.location.lat, location.location.lon)
-      )
-    })
 
-    this.refs.resultMap.map.fitBounds(bounds)
-  }
   render() {
     const mapStyles = {
       width: '100%',
-      height: '100%'
+      height: '100%',
+      position: 'relative'
     }
+    // Center the map such that it shows all markers and auto zoom
+    const bounds = new this.props.google.maps.LatLngBounds()
+    this.props.locations &&
+      this.props.locations.map(location => {
+        return bounds.extend(
+          new this.props.google.maps.LatLng(location.location.lat, location.location.lon)
+        )
+      })
     return (
       <Map
         role="application"
         aria-label="map"
-        ref="resultMap"
+        className={'main__map'}
         onReady={this.mapReady}
         google={this.props.google}
-        zoom={11}
+        zoom={16}
+        bounds={bounds}
         style={mapStyles}
-        initialCenter={{
-          lat: 35.7915,
-          lng: -78.7811
-        }}
-        center={this.props.selectedPlace.position /* Center marker on the map onClock */}
         styles={this.props.styles}
+        center={this.props.selectedPlace.position /* Center marker on the map onClock */}
+        // styles={this.props.styles}
         onClick={this.props.onInfoWindowClose}>
         {/* Iterate through the this.props.locations array and instantiate a new <Marker /> instance for each. */}
-        {this.props.locations.map((loc, index) => {
-          return (
-            <Marker
-              id={loc.id}
-              key={loc.id}
-              index={index}
-              title={loc.name}
-              name={loc.name}
-              capacity={loc.capacity}
-              address={loc.address}
-              extendedAddress={loc.extended_address}
-              url={loc.url}
-              onClick={this.props.onMarkerClick}
-              position={{
-                lat: loc.location.lat,
-                lng: loc.location.lon
-              }}
-              animation={!this.props.mapDropped ? this.props.google.maps.Animation.DROP : null}
-              icon={this.props.selectedPlace.name === loc.name ? locationSelected : locationMarker}
-            />
-          )
-        })}
+        {this.props.locations &&
+          this.props.locations.map((loc, index) => {
+            return (
+              <Marker
+                id={loc.id}
+                key={loc.id}
+                index={index}
+                title={loc.name}
+                name={loc.name}
+                capacity={loc.capacity}
+                address={loc.address}
+                extendedAddress={loc.extended_address}
+                url={loc.url}
+                onClick={this.props.onMarkerClick}
+                position={{
+                  lat: loc.location.lat,
+                  lng: loc.location.lon
+                }}
+                animation={!this.props.mapDropped ? this.props.google.maps.Animation.DROP : null}
+                icon={
+                  this.props.selectedPlace.name === loc.name ? locationSelected : locationMarker
+                }
+              />
+            )
+          })}
         {/* <InfoWindow /> component can now handle callback actions when it's open or closed. */}
         <InfoWindow
           marker={this.props.activeMarker}
           visible={this.props.showingInfoWindow}
           onClose={this.props.onInfoWindowClose}>
-          <div>
+          <div className="map__iw">
             <h1>{this.props.activeMarker && this.props.activeMarker.name}</h1>
-            <div>
+            <div className="map__iw--capacity">
               Capacity:{' '}
               {this.props.activeMarker && this.props.activeMarker.capacity > 0
                 ? this.props.activeMarker.capacity
@@ -90,10 +92,11 @@ class MapContainer extends Component {
               {this.props.activeMarker && this.props.activeMarker.extendedAddress}
               <br />
               <a
+                className="map__iw--link"
                 href={this.props.activeMarker && this.props.activeMarker.url}
                 target="_blank"
                 rel="noopener noreferrer">
-                SeatGeek.com Web page
+                {this.props.activeMarker && this.props.activeMarker.name} Upcoming Events
               </a>
             </address>
           </div>

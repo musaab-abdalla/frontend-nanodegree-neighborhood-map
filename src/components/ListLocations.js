@@ -15,12 +15,13 @@ class ListLocations extends Component {
   render() {
     return (
       <div>
-        <Drawer open={this.props.open} onClose={this.props.toggleDrawer}>
-          <div className="list" style={{ width: '240px' }}>
+        <Drawer className="side--drawer" open={this.props.open} onClose={this.props.toggleDrawer}>
+          <div className="side__drawer" style={{ width: '240px' }}>
             <input
               type="text"
-              placeholder="Filter list"
+              placeholder="Filter Locations"
               name="filter"
+              className="side__drawer--filter"
               onChange={e => this.updateQuery(e.target.value)}
               value={this.state.query}
             />
@@ -29,8 +30,11 @@ class ListLocations extends Component {
                 this.props.locations.map((loc, index) => {
                   return (
                     <li key={index}>
-                      <button key={index} onClick={e => this.props.onButtonClick(loc.name)}>
-                        <div>{loc.name}</div>
+                      <button
+                        key={index}
+                        className="side__drawer--item"
+                        onClick={e => this.props.onButtonClick(loc.name)}>
+                        {loc.name}
                       </button>
                     </li>
                   )

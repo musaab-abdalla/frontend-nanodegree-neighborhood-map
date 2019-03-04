@@ -1,10 +1,33 @@
+/* CSS Document */
+
+:focus {
+  outline: 1px dotted #fff;
+  -webkit-box-shadow: 0 0 0 0.2rem rgb(51, 151, 219);
+  box-shadow: 0 0 0 0.2rem rgb(51, 151, 219);
+}
+
 html {
   height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
+  background-color: #fdfdfd;
+  color: #525252;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  height: 100%;
+  line-height: 1.5;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  height: 100%;
+  position: relative;
+  text-rendering: optimizeLegibility;
+  width: 100%;
 }

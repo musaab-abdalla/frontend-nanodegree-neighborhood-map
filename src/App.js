@@ -17,49 +17,34 @@ const parameters = {
   per_page: 20
 }
 class App extends Component {
-  _isMounted = false
-  state = {
-    venues: [],
-    filtered: null,
-    isLoading: false,
-    error: null,
-    mapDropped: false,
-    activeMarker: {},
-    selectedPlace: {},
-    showingInfoWindow: false,
-    styles: styles,
-    open: false
+  constructor() {
+    super()
+    this.state = {
+      venues: [],
+      filtered: null,
+      mapDropped: false,
+      activeMarker: {},
+      selectedPlace: {},
+      showingInfoWindow: false,
+      styles: styles,
+      open: false
+    }
   }
 
   componentDidMount = () => {
-    // Check if the component is still mounted
-    this._isMounted = true
     // Fetch to retrieve data from SeatGeek;
     fetch(endPoint + new URLSearchParams(parameters))
       .then(response => {
-        if (response.ok) {
-          return response.json()
-        } else {
-          // Throwing an error when response doesn’t match expected data
-          throw new Error('Something went wrong ...')
-        }
+        return response.json()
       })
-      .then(data => {
-        if (this._isMounted) {
-          this.setState({
-            venues: data.venues,
-            isLoading: false,
-            filtered: this.filterLocations(data.venues, '')
-          })
-        }
-      })
+      .then(data =>
+        this.setState({
+          venues: data.venues,
+          filtered: this.filterLocations(data.venues, '')
+        })
+      )
       // Handle errors
-      .catch(error => this.setState({ error, isLoading: false }))
-  }
-
-  componentWillUnmount() {
-    // Avoid an unnecessary state update
-    this._isMounted = false
+      .catch(error => alert('SeatGeek failed to fetch data: ', error))
   }
 
   /*
@@ -81,12 +66,14 @@ class App extends Component {
   The closeInfoWindow() is for closing the InfoWindow once a user clicks on
   the close button on the infoWindow.
   */
-  onInfoWindowClose = () => {
-    this.setState({
-      showingInfoWindow: false,
-      activeMarker: null,
-      mapDropped: true
-    })
+  onInfoWindowClose = props => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null,
+        mapDropped: true
+      })
+    }
   }
 
   handleDrawerToggle = () => {
@@ -111,47 +98,52 @@ class App extends Component {
   onButtonClick = venueName => {
     document.querySelector(`[title="${venueName}"]`).click()
   }
-
   render() {
-    // Show the error message when response doesn’t match expected data
-    const { isLoading, error } = this.state
-    if (error) {
-      return <p>{error.message}</p>
-    }
-
-    if (isLoading) {
-      return <p>Loading ...</p>
-    }
     return (
-      <div className="App">
-        <header className="App-header">
-          <div className="App-logo">
-            <button onClick={this.handleDrawerToggle} aria-label="Open drawer">
-              <i className="fa fa-align-left" aria-hidden="true" />
-            </button>
-            <h1>City Events</h1>
-          </div>
-        </header>
-        <ListLocations
-          open={this.state.open}
-          toggleDrawer={this.handleDrawerToggle}
-          locations={this.state.filtered}
-          filterLocations={this.updateQuery}
-          onButtonClick={this.onButtonClick}
-        />
-        <main className="App-main">
-          <section className="map-container">
-            <MapContainer
+      <div className="wrapper">
+        <header className="toolbar" role="banner">
+          <nav className="toolbar__navigation">
+            <div className="toolba__toggle-button">
+              <button
+                onClick={this.handleDrawerToggle}
+                aria-label="Open drawer"
+                className="toggle-button">
+                <div className="toggle-button__line" />
+                <div className="toggle-button__line" />
+                <div className="toggle-button__line" />
+              </button>
+            </div>
+            <div className="toolbar__logo">
+              <a href="./">City Events</a>
+            </div>
+            <div className="spacer" />
+            <div className="toolbar__navigation-items">
+              <ul>
+                <li>
+                  <a href="/">All Locations from SeatGeek</a>
+                </li>
+              </ul>
+            </div>
+            <ListLocations
+              open={this.state.open}
+              toggleDrawer={this.handleDrawerToggle}
               locations={this.state.filtered}
-              activeMarker={this.state.activeMarker}
-              selectedPlace={this.state.selectedPlace}
-              showingInfoWindow={this.state.showingInfoWindow}
-              styles={this.state.styles}
-              mapDropped={this.state.mapDropped}
-              onMarkerClick={this.onMarkerClick}
-              onInfoWindowClose={this.onInfoWindowClose}
+              filterLocations={this.updateQuery}
+              onButtonClick={this.onButtonClick}
             />
-          </section>
+          </nav>
+        </header>
+        <main className="main" role="main">
+          <MapContainer
+            locations={this.state.filtered}
+            activeMarker={this.state.activeMarker}
+            selectedPlace={this.state.selectedPlace}
+            showingInfoWindow={this.state.showingInfoWindow}
+            styles={this.state.styles}
+            mapDropped={this.state.mapDropped}
+            onMarkerClick={this.onMarkerClick}
+            onInfoWindowClose={this.onInfoWindowClose}
+          />
         </main>
       </div>
     )
