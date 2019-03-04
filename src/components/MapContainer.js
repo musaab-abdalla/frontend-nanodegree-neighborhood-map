@@ -22,7 +22,7 @@ class MapContainer extends Component {
   render() {
     const mapStyles = {
       width: '100%',
-      height: '100%',
+      height: 'calc(100% - 56px)',
       position: 'relative'
     }
     // Center the map such that it shows all markers and auto zoom

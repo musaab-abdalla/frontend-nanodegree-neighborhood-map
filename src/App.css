@@ -256,12 +256,15 @@ a:focus {
 
 /* ======================= RESPONSIVE ======================= */
 
-@media (max-width: 767px) {
-  .toolbar_navigation-items {
-    display: none;
-  }
+@media (max-width: 732px) {
   .toolbar__logo {
-    width: 100%;
+    margin-left: 0.5rem;
     text-align: center;
+  }
+  .toolbar__logo a {
+    font-size: 1.2rem;
+  }
+  .toolbar__navigation-items a {
+    font-size: 0.675rem;
   }
 }
