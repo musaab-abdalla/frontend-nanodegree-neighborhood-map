@@ -21,7 +21,7 @@ This project will be evaluated by a Udacity code reviewer according to the Neigh
 
 ### Screenshot
 
-![desktop](https://raw.githubusercontent.com/musaab-abdalla/musaab-abdalla.github.io/master/frontend-nanodegree-neighborhood-map/screenshot/desktop.png 'Desktop')![tablet](https://raw.githubusercontent.com/musaab-abdalla/musaab-abdalla.github.io/master/frontend-nanodegree-neighborhood-map/screenshot/tablet.png 'Tablet')![mobile](https://raw.githubusercontent.com/musaab-abdalla/musaab-abdalla.github.io/master/frontend-nanodegree-neighborhood-map/screenshot/mobile.png 'Mobile')
+![desktop](https://github.com/musaab-abdalla/frontend-nanodegree-neighborhood-map/blob/master/src/img/desktop.png?raw=true 'Desktop')![tablet](https://github.com/musaab-abdalla/frontend-nanodegree-neighborhood-map/blob/master/src/img/tablet.png?raw=true 'Tablet')![mobile](https://raw.githubusercontent.com/musaab-abdalla/frontend-nanodegree-neighborhood-map/master/src/img/mobile.png 'Mobile')
 
 ## Instructions
 
